@@ -1,0 +1,33 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "max-len": [1, 120, 2, {"ignoreComments": true}],
+    "react/prop-types": [0],
+    "import/namespace": 0,
+    "import/named": 0,
+    "object-curly-spacing": [2, "always"],
+    "react/jsx-no-bind": ["error", {
+      "allowArrowFunctions": true
+    }],
+    "react/no-array-index-key": 0,
+    "no-magic-numbers": 0,
+    "no-unused-vars": 0,
+    "operator-linebreak": [
+      "error",
+      "after",
+      {
+        "overrides": {
+          "&&": "after"
+        }
+      }
+    ]
+  },
+  "extends": ["rapid7/browser", "rapid7/strict"]
+}
