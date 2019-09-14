@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
-    "deploy": "aws s3 sync build/ s3://hacker-news.garthtoland.com"
+    "deploy": "aws s3 sync dist/ s3://hacker-news.garthtoland.com"
   },
   "eslintConfig": {
     "extends": "react-app"
