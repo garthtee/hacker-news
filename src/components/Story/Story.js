@@ -1,4 +1,8 @@
 import React from 'react';
+import { 
+  FaHandPointRight,
+  FaHandPointLeft,
+} from 'react-icons/fa';
 
 class Story extends React.Component {
 	state = {
@@ -30,7 +34,19 @@ class Story extends React.Component {
 	              </h5>
 	            </div>
 	            <div className="col-4 information">
-	              <p>{this.props.story.score}</p>
+	              <p>                  
+	                <FaHandPointRight
+	                  style={{
+	                    marginRight: '5px',
+	                  }}
+	                />
+	                {this.props.story.score}
+	                <FaHandPointLeft
+	                  style={{
+	                    marginLeft: '5px',
+	                  }}
+	                />
+	              </p>
 	              <p>{this.getTime(this.props.story.time)}</p>
 	            </div>
 	          </div>
