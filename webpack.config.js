@@ -6,6 +6,7 @@ module.exports = {
   },
   entry: './src/index.js',
   mode: 'development',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -44,7 +45,7 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       filename: 'index.html',
-      template: './index.html',
+      template: './public/index.html',
     }),
   ],
   resolve: {

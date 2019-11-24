@@ -1,33 +1,32 @@
 .story {
-    a {
-        text-decoration: none;
-        color: black;
+  a {
+    text-decoration: none;
+    color: black;
 
-        :hover {
-            text-decoration: none;
-        }
+    :hover {
+      text-decoration: none;
     }
+  }
 
-    .title {
-        border-right: 0.5px solid grey;
-        text-align: left;
-        padding: 3%;
+  .title {
+    border-right: 0.5px solid grey;
+    text-align: left;
+    padding: 3%;
+  }
+
+  .information {
+    width: 25%;
+    display: inline-block;
+    color: grey;
+    height: 100%;
+    padding: 10px;
+
+    p {
+      font-size: 1rem;
     }
+  }
 
-    .information {
-
-        width: 25%;
-        display: inline-block;
-        color: grey;
-        height: 100%;
-        padding: 10px;
-
-        p {
-            font-size: 1rem;
-        }
-    }
-
-    .list-group-item {
-        margin-bottom: 5px !important;
-    }
+  .list-group-item {
+    margin-bottom: 5px !important;
+  }
 }

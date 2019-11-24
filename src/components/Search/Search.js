@@ -1,43 +1,49 @@
-import React from 'react';
-import constants from '../../constants';
-import './search.scss';
+import React, { 
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
-class Search extends React.Component {
-  componentDidMount() {
-    this.searchInput.focus();
-  }
+const Search = ({
+  stories,
+  unfilteredStories,
+  handler,
+  setIsSearching,
+}) => {
+  let searchInput = useRef();
+  const [previousSearch, setPreviousSearch] = useState('');
 
-  handleChange = (event) => {
+  useEffect(() => searchInput.focus(), []);
+
+  const filterStories = (searchTerm, storiesToSearch) => {
+    const updatedList = storiesToSearch.filter((s) =>
+      s.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    handler(updatedList);
+  };
+
+  const handleChange = (event) => {
     const searchTerm = event.target.value;
 
-    if (constants.previousSearch.length > searchTerm.length) {            
-      this.props.handler(this.props.unfilteredStories, () => {
-        this.filterStories(searchTerm);
-      });
+    setIsSearching(searchTerm.length > 0);
+
+    if (previousSearch.length > searchTerm.length) {
+      filterStories(searchTerm, unfilteredStories);
     } else {
-      this.filterStories(searchTerm);
+      filterStories(searchTerm, stories);
     }
 
-    constants.previousSearch = searchTerm;
-  }
+    setPreviousSearch(searchTerm);
+  };
 
-  filterStories(searchTerm) {
-    let updatedList = this.props.stories;
-
-    updatedList = updatedList.filter((s) => s.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    this.props.handler(updatedList);
-  }
-
-  render() {
-    return (
-      <div className="search">
-        <input className="form-control" placeholder="Search headlines.."
-          onChange={this.handleChange}
-          ref={(input) => {this.searchInput = input;}} 
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="search">
+      <input className="form-control" placeholder="Search headlines.."
+        onChange={handleChange}
+        ref={(input) => {searchInput = input;}} 
+      />
+    </div>
+  );
+};
 
 export default Search;

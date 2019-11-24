@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { 
+  useEffect,
+  useState,
+} from 'react';
 import logo from './hacker.png';
 import './app.scss';
 import axios from 'axios';
@@ -7,73 +10,109 @@ import Search from './components/Search/Search';
 import Story from './components/Story/Story';
 import Spinner from './components/Spinner/Spinner';
 
-class App extends Component {
-  state = {
-    loading: true,
-    stories: [],
-    unfilteredStories: [],
-  }
+const STORIES_PAGE_SIZE = 20;
 
-  componentWillMount() {
-    axios.get(`${constants.endpoint}/v0/topstories.json`)
-      .then((response) => {
-        const list = response.data.slice(0, 20);
+const App = () => {
+  const [isSearching, setIsSearching] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [topStories, setTopStories] = useState([]);
+  const [stories, setStories] = useState([]);
+  const [unfilteredStories, setUnfilteredStories] = useState([]);
 
-        list.forEach((story) => {
-          axios.get(`${constants.endpoint}/v0/item/${story}.json`)
-            .then((response) => {
-              this.setState((prevState) => ({
-                loading: false,
-                stories: [...prevState.stories, response.data],
-                unfilteredStories: [...prevState.unfilteredStories, response.data],
-              }));
-            });
-        });
-      });
-  }
+  const getStories = () => {
+    setLoading(true);
+    const end = page * STORIES_PAGE_SIZE;
+    const start = end - STORIES_PAGE_SIZE;
+    const list = topStories.slice(start, end);
 
-  handler = (stories, promise) => {
-    this.setState({
-      stories,
-    }, promise);
-  }
-
-  render() {
-    const {
-      loading,
-    } = this.state;
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            {
-              loading ?
-                'Loading stories..' :
-                this.state.stories.length === 0 ? 'No stories found' :
-                  `Top ${this.state.stories.length} Hacker News headlines`
-            }
-          </p>
-          <Search 
-            stories={this.state.stories}
-            unfilteredStories={this.state.unfilteredStories}
-            handler={this.handler}
-          />
-          {loading ?
-            <Spinner /> :
-            <ul className="list-group">
-              {
-                this.state.stories.map((story, i) => (
-                  <Story key={story.id} story={story} />
-                ))
-              }
-            </ul>
+    list.forEach((story, i) => {
+      axios.get(`${constants.endpoint}/v0/item/${story}.json`)
+        .then((response) => {
+          setStories((prev) => [...prev, response.data]);
+          setUnfilteredStories((prev) => [...prev, response.data]);
+          
+          if (i === (STORIES_PAGE_SIZE - 1)) {
+            setLoading(false);
           }
-        </header>
-      </div>
-    );
-  }
-}
+        });
+    });
+    setPage(page + 1);
+  };
+
+  const onScroll = (e) => {
+    const doc = document.documentElement;
+    const offset = doc.scrollTop + window.innerHeight;
+    const height = doc.offsetHeight;
+
+    if (offset === height && !isSearching) {
+      setTimeout(() => {
+        getStories();
+      }, 3000);
+    }
+  };
+
+  useEffect(() => {
+    if (topStories.length === 0) {
+      axios.get(`${constants.endpoint}/v0/topstories.json`)
+        .then((response) => {
+          setTopStories(response.data);
+        });
+    } else {
+      getStories();
+    }
+  }, [topStories]);
+
+  const onClickMore = () => {
+    getStories();
+  };
+
+  const handler = (stories) => {
+    setStories(stories);
+  };
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          {
+            loading ?
+              'Loading stories..' :
+              stories.length === 0 ? 'No stories found' :
+                `Top ${stories.length} Hacker News headlines`
+          }
+        </p>
+        <Search 
+          stories={stories}
+          unfilteredStories={unfilteredStories}
+          handler={handler}
+          setIsSearching={(value) => setIsSearching(value)}
+        />
+      </header>
+      <ul className="list-group">
+        {
+          stories.map((story, i) => (
+            <Story key={`${story.id}${i}${i}`} story={story} />
+          ))
+        }
+        {(loading && !isSearching) &&
+          <div className="text-center">
+            <Spinner />
+          </div>
+        }
+        {(stories.length > 0 && stories.length !== topStories.length &&
+          !loading) &&
+          <button
+            className="btn btn-success mt-3 mb-2"
+            onClick={onClickMore}
+          >
+            Load more
+          </button>
+        }
+      </ul>
+    </div>
+  );
+};
 
 export default App;

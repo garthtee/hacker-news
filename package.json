@@ -11,7 +11,7 @@
     "react-icons": "^3.7.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --open --mode development",
+    "dev": "webpack-dev-server --config webpack.config.js",
     "build": "webpack --mode production",
     "deploy": "aws s3 sync dist/ s3://hacker-news.garthtoland.com"
   },
