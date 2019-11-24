@@ -2,11 +2,11 @@
   "name": "Hacker News",
   "description": "Read the top technology stories from hackernews using this simple UI.",
   "icons": [{
-    "src": "public/icons/favicon.ico",
+    "src": "images/favicon.ico",
     "sizes": "64x64 32x32 24x24 16x16",
     "type": "image/x-icon"
   }, {
-    "src": "public/icons/android-chrome-512x512.png",
+    "src": "images/android-chrome-512x512.png",
     "type": "image/png",
     "sizes": "512x512"
   }],

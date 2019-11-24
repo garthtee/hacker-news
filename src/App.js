@@ -74,7 +74,7 @@ const App = () => {
         <p>
           {
             loading ?
-              'Loading stories..' :
+              'Loading stories...' :
               stories.length === 0 ? 'No stories found' :
                 `Top ${stories.length} Hacker News headlines`
           }

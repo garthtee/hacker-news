@@ -54,8 +54,8 @@ const Search = ({
 
   return (
     <div className="search">
-      <div class="input-group">
-        <input className="form-control" placeholder="Search headlines.."
+      <div className="input-group">
+        <input className="form-control" placeholder="Search headlines..."
           onChange={handleChange}
           ref={(input) => {searchInput = input;}} 
         />
