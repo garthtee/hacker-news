@@ -63,10 +63,6 @@ const App = () => {
     }
   }, [topStories]);
 
-  const onClickMore = () => {
-    getStories();
-  };
-
   const handler = (stories) => {
     setStories(stories);
   };
@@ -83,7 +79,7 @@ const App = () => {
                 `Top ${stories.length} Hacker News headlines`
           }
         </p>
-        <Search 
+        <Search
           stories={stories}
           unfilteredStories={unfilteredStories}
           handler={handler}
@@ -102,10 +98,10 @@ const App = () => {
           </div>
         }
         {(stories.length > 0 && stories.length !== topStories.length &&
-          !loading) &&
+          !loading && !isSearching) &&
           <button
             className="btn btn-success mt-3 mb-2"
-            onClick={onClickMore}
+            onClick={() => getStories()}
           >
             Load more
           </button>

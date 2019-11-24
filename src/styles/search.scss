@@ -1,5 +1,8 @@
 .search {
+    .clear-button {
+        cursor: pointer;
+    }
     input {
-        margin: 0 0 20px 0;
+        border-radius: 0.25rem !important;
     }
 }
