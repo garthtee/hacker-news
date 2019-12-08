@@ -4,9 +4,9 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
   },
+  devtool: 'source-map',
   entry: './src/index.js',
   mode: 'development',
-  devtool: 'source-map',
   module: {
     rules: [
       {

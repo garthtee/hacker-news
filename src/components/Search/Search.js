@@ -1,5 +1,4 @@
 import React, { 
-  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -14,8 +13,6 @@ const Search = ({
   let searchInput = useRef();
   const [previousSearch, setPreviousSearch] = useState('');
   const [stateIsSearching, setStateIsSearching] = useState(false);
-
-  useEffect(() => searchInput.focus(), []);
 
   const filterStories = (searchTerm, storiesToSearch) => {
     if (searchTerm === '') {

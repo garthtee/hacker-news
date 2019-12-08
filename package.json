@@ -11,11 +11,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.config.js",
-    "build": "webpack --config webpack.prod.config.js",
-    "deploy": "aws s3 sync dist/ s3://hacker-news.garthtoland.com"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "build": "webpack --config webpack.prod.config.js"
   },
   "browserslist": [
     ">0.2%",

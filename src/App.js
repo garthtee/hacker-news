@@ -40,18 +40,6 @@ const App = () => {
     setPage(page + 1);
   };
 
-  const onScroll = (e) => {
-    const doc = document.documentElement;
-    const offset = doc.scrollTop + window.innerHeight;
-    const height = doc.offsetHeight;
-
-    if (offset === height && !isSearching) {
-      setTimeout(() => {
-        getStories();
-      }, 3000);
-    }
-  };
-
   useEffect(() => {
     if (topStories.length === 0) {
       axios.get(`${constants.endpoint}/v0/topstories.json`)
@@ -74,8 +62,8 @@ const App = () => {
         <p>
           {
             loading ?
-              'Loading stories...' :
-              stories.length === 0 ? 'No stories found' :
+              'Loading headlines...' :
+              stories.length === 0 ? 'No headlines found' :
                 `Top ${stories.length} Hacker News headlines`
           }
         </p>
