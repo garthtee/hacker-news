@@ -1,8 +1,19 @@
-.search {
+.app.ui-dark {
+  .search {
     .clear-button {
-        cursor: pointer;
+      color: white;
     }
-    input {
-        border-radius: 0.25rem !important;
+    .input {
+      background-color: $dark-secondary-bg;
     }
+  }
+}
+
+.search {
+  .clear-button {
+    cursor: pointer;
+  }
+  input {
+    border-radius: 0.25rem !important;
+  }
 }

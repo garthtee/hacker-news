@@ -9,6 +9,7 @@ import constants from './constants';
 import Search from './components/Search/Search';
 import Story from './components/Story/Story';
 import Spinner from './components/Spinner/Spinner';
+import ThemeToggle from './components/Settings/ThemeToggle';
 
 const STORIES_PAGE_SIZE = 20;
 
@@ -56,8 +57,9 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app ui-dark">
+      <header className="app-header">
+        <ThemeToggle />
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           {

@@ -1,3 +1,11 @@
+.app.ui-dark {
+  .story {
+    .list-group-item {
+      background-color: $dark-secondary-bg;
+    }
+  }  
+}
+
 .story {
   a {
     text-decoration: none;
