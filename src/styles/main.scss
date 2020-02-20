@@ -55,3 +55,9 @@ ul {
     transform: rotate(180deg);
   }
 }
+
+@media only screen and (min-width: 575px) {
+  .modal-dialog {
+    max-width: 80%;
+  }
+}
