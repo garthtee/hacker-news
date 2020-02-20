@@ -16,6 +16,7 @@
     "react/jsx-no-bind": ["error", {
       "allowArrowFunctions": true
     }],
+    "indent": ["error", 2],
     "react/no-array-index-key": 0,
     "no-magic-numbers": 0,
     "no-unused-vars": 0,
@@ -28,6 +29,5 @@
         }
       }
     ]
-  },
-  "extends": ["rapid7/browser", "rapid7/strict"]
+  }
 }

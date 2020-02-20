@@ -14,7 +14,7 @@ const STORIES_PAGE_SIZE = 20;
 
 const App = () => {
   const [isSearching, setIsSearching] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [topStories, setTopStories] = useState([]);
   const [stories, setStories] = useState([]);
