@@ -3,6 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
   devServer: {
     historyApiFallback: true,
+    open: true,
   },
   devtool: 'source-map',
   entry: './src/index.js',

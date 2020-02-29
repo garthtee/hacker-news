@@ -24,6 +24,7 @@ ul {
 
 .App {
   text-align: center;
+  margin-bottom: 60px;
 }
 
 .App-logo {
@@ -56,8 +57,23 @@ ul {
   }
 }
 
-@media only screen and (min-width: 575px) {
+@include media-breakpoint-up(sm) {
   .modal-dialog {
     max-width: 80%;
+  }
+}
+
+.feedback {
+  font-size: 13px;
+  margin-top: 10px;
+  svg {
+    margin-left: 5px;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+  span {
+    &:hover {
+      text-decoration: none !important;
+    }
   }
 }

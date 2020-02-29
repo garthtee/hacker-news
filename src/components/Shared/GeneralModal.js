@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap'
+import React from 'react';
+import {
+  Modal,
+  Button,
+} from 'react-bootstrap'
 
 const GeneralModal = ({
   title,
@@ -12,7 +15,7 @@ const GeneralModal = ({
       <Modal.Title>{title}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-      <p dangerouslySetInnerHTML={{ __html: body }} />
+      <p dangerouslySetInnerHTML={{__html: body}} />
     </Modal.Body>
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
