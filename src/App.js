@@ -61,14 +61,6 @@ const App = () => {
   return (
     <>
       <div className="App">
-        <div className="feedback">
-          <a href="mailto:garth@garthtoland.com?subject=Hacker news app">
-            <Button variant="secondary">
-              Give feedback or suggestions <span>😃</span>
-              <FaEnvelope />
-            </Button>
-          </a>
-        </div>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
