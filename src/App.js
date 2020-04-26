@@ -4,6 +4,8 @@ import React, {
 } from 'react';
 import logo from './hacker.png';
 import './app.scss';
+import {Button, Alert} from 'react-bootstrap';
+import {FaEnvelope} from 'react-icons/fa';
 import axios from 'axios';
 import constants from './constants';
 import Search from './components/Search/Search';
@@ -11,6 +13,7 @@ import Story from './components/Story/Story';
 import Spinner from './components/Spinner/Spinner';
 import ThemeToggle from './components/Settings/ThemeToggle';
 import useTheme from './utils/useTheme';
+import ScrollToTop from './components/Shared/ScrollToTop';
 
 const STORIES_PAGE_SIZE = 20;
 
@@ -59,52 +62,55 @@ const App = () => {
   };
 
   return (
-    <div className={`app ${theme === 'dark' ? 'ui-dark' : 'ui-light'}`}>
-      <header className="app-header">
-        <ThemeToggle
-          theme={theme}
-          toggleTheme={toggleTheme}
-        />
-        <div className="app-logo">
-          <img src={logo} alt="logo" />
-        </div>
-        <p>
-          {
-            loading ?
-              'Loading headlines...' :
-              stories.length === 0 ? 'No headlines found' :
-                `Top ${stories.length} Hacker News headlines`
-          }
-        </p>
-        <Search
-          stories={stories}
-          unfilteredStories={unfilteredStories}
-          handler={handler}
-          setIsSearching={(value) => setIsSearching(value)}
-        />
-      </header>
-      <ul className="list-group">
-        {
-          stories.map((story, i) => (
-            <Story key={`${story.id}${i}${i}`} story={story} />
-          ))
-        }
-        {(loading && !isSearching) &&
-          <div className="text-center">
-            <Spinner />
+    <>
+      <div className={`app ${theme === 'dark' ? 'ui-dark' : 'ui-light'}`}>
+        <header className="app-header">
+          <ThemeToggle
+            theme={theme}
+            toggleTheme={toggleTheme}
+          />
+          <div className="app-logo">
+            <img src={logo} alt="logo" />
           </div>
-        }
-        {(stories.length > 0 && stories.length !== topStories.length &&
-          !loading && !isSearching) &&
-          <button
-            className="btn btn-success mt-3 mb-2"
-            onClick={() => getStories()}
-          >
-            Load more
-          </button>
-        }
-      </ul>
-    </div>
+          <p>
+            {
+              loading ?
+                'Loading headlines...' :
+                stories.length === 0 ? 'No headlines found' :
+                  `Top ${stories.length} Hacker News headlines`
+            }
+          </p>
+          <Search
+            stories={stories}
+            unfilteredStories={unfilteredStories}
+            handler={handler}
+            setIsSearching={(value) => setIsSearching(value)}
+          />
+        </header>
+        <ul className="list-group">
+          {
+            stories.map((story, i) => (
+              <Story key={`${story.id}${i}${i}`} story={story} />
+            ))
+          }
+          {(loading && !isSearching) &&
+            <div className="text-center">
+              <Spinner />
+            </div>
+          }
+          {(stories.length > 0 && stories.length !== topStories.length &&
+            !loading && !isSearching) &&
+            <button
+              className="btn btn-success mt-3 mb-2"
+              onClick={() => getStories()}
+            >
+              Load more
+            </button>
+          }
+        </ul>
+      </div>
+      <ScrollToTop />
+    </>
   );
 };
 

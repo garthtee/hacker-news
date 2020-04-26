@@ -24,6 +24,7 @@ ul {
 
 .app {
   text-align: center;
+  margin-bottom: 60px;
 
   &.ui-dark {
     background-color: $dark-primary-bg;
@@ -69,5 +70,11 @@ ul {
   }
   to {
     transform: rotate(180deg);
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .modal-dialog {
+    max-width: 80%;
   }
 }

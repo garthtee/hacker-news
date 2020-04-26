@@ -12,10 +12,15 @@
     "react/prop-types": [0],
     "import/namespace": 0,
     "import/named": 0,
-    "object-curly-spacing": ["error", "never"],
+    "object-curly-spacing": [2, "never", {
+      "objectsInObjects": true,
+      "arraysInObjects": false
+    }],
+    "comma-dangle": ["error", "only-multiline"],
     "react/jsx-no-bind": ["error", {
       "allowArrowFunctions": true
     }],
+    "indent": ["error", 2],
     "react/no-array-index-key": 0,
     "no-magic-numbers": 0,
     "no-unused-vars": 0,
