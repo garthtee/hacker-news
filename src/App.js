@@ -72,8 +72,8 @@ const App = () => {
   return (
     <Container fluid className={`app ${theme === 'dark' ? 'ui-dark' : 'ui-light'}`}>
       <header className="app-header">
-        <Row className="justify-content-end">
-          <Col xs={2}>
+        <Row className="justify-content-end mt-3">
+          <Col xs={3}>
             <Settings>
               <ThemeToggle
                 theme={theme}
@@ -84,7 +84,7 @@ const App = () => {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col xs={10} sm={6} md={6} lg={4}>
+          <Col xs={12} sm={6} md={6} lg={4}>
             <div className="app-logo">
               <img src={logo} alt="logo" />
             </div>

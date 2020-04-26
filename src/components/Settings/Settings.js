@@ -3,7 +3,10 @@ import {Dropdown} from 'react-bootstrap';
 import {FaCog} from 'react-icons/fa';
 
 const Settings = ({children}) => (
-  <Dropdown>
+  <Dropdown
+    alignRight
+    drop="down"
+  >
     <Dropdown.Toggle variant="secondary" id="dropdown-basic">
       <FaCog />
     </Dropdown.Toggle>
