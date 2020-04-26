@@ -10,10 +10,12 @@ import Search from './components/Search/Search';
 import Story from './components/Story/Story';
 import Spinner from './components/Spinner/Spinner';
 import ThemeToggle from './components/Settings/ThemeToggle';
+import useTheme from './utils/useTheme';
 
 const STORIES_PAGE_SIZE = 20;
 
 const App = () => {
+  const {theme, toggleTheme} = useTheme();
   const [isSearching, setIsSearching] = useState(false);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -57,10 +59,15 @@ const App = () => {
   };
 
   return (
-    <div className="app ui-dark">
+    <div className={`app ${theme === 'dark' ? 'ui-dark' : 'ui-light'}`}>
       <header className="app-header">
-        <ThemeToggle />
-        <img src={logo} className="App-logo" alt="logo" />
+        <ThemeToggle
+          theme={theme}
+          toggleTheme={toggleTheme}
+        />
+        <div className="app-logo">
+          <img src={logo} alt="logo" />
+        </div>
         <p>
           {
             loading ?

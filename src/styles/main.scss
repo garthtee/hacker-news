@@ -28,15 +28,23 @@ ul {
   &.ui-dark {
     background-color: $dark-primary-bg;
 
+    h1, h2, h3, h4, h5 {
+      color: $dark-font-primary;
+    }
+
+    .app-logo {
+      background-color: grey;
+    }
+
     .app-header {
       color: $dark-font-primary;
     }
   }
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-logo {
+  border-radius: 10px;
+  margin: 20px;
 }
 
 .app-header {

@@ -2,7 +2,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { FaTimesCircle } from 'react-icons/fa';
+import {FaTimesCircle} from 'react-icons/fa';
 
 const Search = ({
   stories,
