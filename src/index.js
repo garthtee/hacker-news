@@ -7,5 +7,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 // Registering service worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register(isDev ? '../public/serviceWorker.js' : './serviceWorker.js');
+  navigator.serviceWorker.register('./serviceWorker.js');
 }

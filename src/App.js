@@ -4,18 +4,29 @@ import React, {
 } from 'react';
 import logo from './hacker.png';
 import './app.scss';
-import {Button, Alert} from 'react-bootstrap';
+import {
+  Button,
+  Alert,
+  Row,
+  Col,
+  Container
+} from 'react-bootstrap';
 import {FaEnvelope} from 'react-icons/fa';
 import axios from 'axios';
 import constants from './constants';
 import Search from './components/Search/Search';
 import Story from './components/Story/Story';
 import Spinner from './components/Spinner/Spinner';
+import ThemeToggle from './components/Settings/ThemeToggle';
+import useTheme from './hooks/useTheme';
 import ScrollToTop from './components/Shared/ScrollToTop';
+import Settings from './components/Settings/Settings';
+import GithubLink from './components/Shared/GithubLink';
 
 const STORIES_PAGE_SIZE = 20;
 
 const App = () => {
+  const {theme, toggleTheme} = useTheme();
   const [isSearching, setIsSearching] = useState(false);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -59,49 +70,72 @@ const App = () => {
   };
 
   return (
-    <>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            {
-              loading ?
-                'Loading headlines...' :
-                stories.length === 0 ? 'No headlines found' :
-                  `Top ${stories.length} Hacker News headlines`
-            }
-          </p>
-          <Search
-            stories={stories}
-            unfilteredStories={unfilteredStories}
-            handler={handler}
-            setIsSearching={(value) => setIsSearching(value)}
-          />
-        </header>
-        <ul className="list-group">
-          {
-            stories.map((story, i) => (
-              <Story key={`${story.id}${i}${i}`} story={story} />
-            ))
-          }
-          {(loading && !isSearching) &&
-            <div className="text-center">
-              <Spinner />
+    <Container fluid className={`app ${theme === 'dark' ? 'ui-dark' : 'ui-light'}`}>
+      <header className="app-header">
+        <Row className="justify-content-end">
+          <Col xs={2}>
+            <Settings>
+              <ThemeToggle
+                theme={theme}
+                toggleTheme={toggleTheme}
+              />
+              <GithubLink />
+            </Settings>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col xs={10} sm={6} md={6} lg={4}>
+            <div className="app-logo">
+              <img src={logo} alt="logo" />
             </div>
-          }
-          {(stories.length > 0 && stories.length !== topStories.length &&
-            !loading && !isSearching) &&
-            <button
-              className="btn btn-success mt-3 mb-2"
-              onClick={() => getStories()}
-            >
-              Load more
-            </button>
-          }
-        </ul>
-      </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p>
+              {
+                loading ?
+                  'Loading headlines...' :
+                  stories.length === 0 ? 'No headlines found' :
+                    `Top ${stories.length} Hacker News headlines`
+              }
+            </p>
+          </Col>
+        </Row>
+        <Row className="justify-content-center">
+          <Col xs={6}>
+            <Search
+              stories={stories}
+              unfilteredStories={unfilteredStories}
+              handler={handler}
+              setIsSearching={(value) => setIsSearching(value)}
+            />
+          </Col>
+        </Row>
+      </header>
+      <ul className="list-group">
+        {
+          stories.map((story, i) => (
+            <Story key={`${story.id}${i}${i}`} story={story} />
+          ))
+        }
+        {(loading && !isSearching) &&
+          <div className="text-center">
+            <Spinner />
+          </div>
+        }
+        {(stories.length > 0 && stories.length !== topStories.length &&
+          !loading && !isSearching) &&
+          <button
+            className="btn btn-success mt-3 mb-2"
+            onClick={() => getStories()}
+          >
+            Load more
+          </button>
+        }
+      </ul>
       <ScrollToTop />
-    </>
+    </Container>
   );
 };
 
