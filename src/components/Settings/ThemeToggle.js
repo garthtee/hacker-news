@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
-import useTheme from '../../utils/useTheme';
+import {Dropdown} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 const ThemeToggle = ({
   theme,
   toggleTheme
 }) => (
-  <button
-    className="btn btn-success mt-3 mb-2"
-    onClick={() => toggleTheme()}
-  >
-    {theme === 'dark' ? 'Switch to light' : 'Switch to dark'}
-  </button>
+  <Dropdown.Item onClick={() => toggleTheme()}>
+    {theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+  </Dropdown.Item>
 );
 
 export default ThemeToggle;
