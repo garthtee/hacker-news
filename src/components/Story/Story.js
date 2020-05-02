@@ -4,18 +4,18 @@ import {
   FaHandPointLeft,
 } from 'react-icons/fa';
 import GeneralModal from '../Shared/GeneralModal';
+import {openUrl} from '../../utils/helpers';
 
 const Story = ({
-  story
+  story,
 }) => {
   const [show, setShow] = useState(false);
 
   const getTime = (time) => {
-	  const date = new Date(0);
-
-	  date.setUTCSeconds(time);
-	  
-	  return date.toDateString();
+    const date = new Date(0);
+    date.setUTCSeconds(time);
+   
+    return date.toDateString();
   }
 
   const onClickStory = (event) => {
@@ -24,12 +24,12 @@ const Story = ({
     if (!story.url) {
       setShow(!show);
     } else {
-      window.open(
-        story.url,
-        '_blank',
-      ).focus();
+      openUrl(story.url);
     }
   };
+
+  const onClickViewOnHN = (id) => 
+    openUrl(`https://news.ycombinator.com/item?id=${id}`);
 
   if (story === null) {
     return null;
@@ -72,6 +72,8 @@ const Story = ({
           title={story.title}
           show={show}
           onClose={() => setShow(false)}
+          successAction={() => onClickViewOnHN(story.id)}
+          successActionText="View on HN"
         />
       }
     </>

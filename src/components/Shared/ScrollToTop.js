@@ -1,6 +1,6 @@
 import React, {
   useEffect,
-  useState
+  useState,
 } from 'react';
 import {FaArrowUp} from 'react-icons/fa';
 

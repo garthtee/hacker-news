@@ -5,25 +5,18 @@ import React, {
 import logo from './hacker.png';
 import './app.scss';
 import {
-  Button,
-  Alert,
   Row,
   Col,
-  Container
+  Container,
 } from 'react-bootstrap';
-import {FaEnvelope} from 'react-icons/fa';
 import axios from 'axios';
 import constants from './constants';
 import Search from './components/Search/Search';
 import Story from './components/Story/Story';
 import Spinner from './components/Spinner/Spinner';
-import ThemeToggle from './components/Settings/ThemeToggle';
 import useTheme from './hooks/useTheme';
 import ScrollToTop from './components/Shared/ScrollToTop';
-import Settings from './components/Settings/Settings';
-import GithubLink from './components/Shared/GithubLink';
-
-const STORIES_PAGE_SIZE = 20;
+import SettingsContainer from './containers/SettingsContainer';
 
 const App = () => {
   const {theme, toggleTheme} = useTheme();
@@ -34,8 +27,9 @@ const App = () => {
   const [stories, setStories] = useState([]);
   const [unfilteredStories, setUnfilteredStories] = useState([]);
 
-  const getStories = () => {
+  const getStories = (isLargeLoad) => {
     setLoading(true);
+    const STORIES_PAGE_SIZE = isLargeLoad ? 60 : 20;
     const end = page * STORIES_PAGE_SIZE;
     const start = end - STORIES_PAGE_SIZE;
     const list = topStories.slice(start, end);
@@ -70,17 +64,16 @@ const App = () => {
   };
 
   return (
-    <Container fluid className={`app ${theme === 'dark' ? 'ui-dark' : 'ui-light'}`}>
+    <Container fluid className="app">
       <header className="app-header">
         <Row className="justify-content-end mt-3">
           <Col xs={3}>
-            <Settings>
-              <ThemeToggle
-                theme={theme}
-                toggleTheme={toggleTheme}
-              />
-              <GithubLink />
-            </Settings>
+            <SettingsContainer
+              getStories={getStories}
+              loading={loading}
+              theme={theme}
+              toggleTheme={toggleTheme}
+            />
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -103,7 +96,7 @@ const App = () => {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Col xs={6}>
+          <Col xs={10} sm={6} md={3} lg={4}>
             <Search
               stories={stories}
               unfilteredStories={unfilteredStories}

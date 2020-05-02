@@ -1,18 +1,19 @@
-import React, {
+import {
   useState,
-  useEffect
+  useEffect,
 } from 'react';
 import {matchTheme} from '../utils/theme';
 import {
   getItem,
-  setItem
+  setItem,
 } from '../utils/localStorage';
 
-const useTheme = (props) => {
+const useTheme = () => {
   const themeStored = getItem('theme');
   const [theme, _setTheme] = useState(themeStored || 'light');
 
   const setBodyBackground = (theme) => {
+    document.body.className = `ui-${theme}`;
     document.body.style.backgroundColor = theme === 'dark' ? '#2a2a2a' : '#ffffff';
   }
 
@@ -27,11 +28,6 @@ const useTheme = (props) => {
     setTheme(newTheme);
   };
 
-  const themeListener = (event) => {
-    const theme = event.matches ? "dark" : "light";
-    setTheme(theme);
-  };
-  
   useEffect(() => {
     if (!themeStored) {
       const match = matchTheme();
@@ -42,16 +38,11 @@ const useTheme = (props) => {
     } else {
       setBodyBackground(themeStored);
     }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', themeListener);
-
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', themeListener);
-    }
   }, []);
 
   return {
     theme,
-    toggleTheme
+    toggleTheme,
   };
 }
 

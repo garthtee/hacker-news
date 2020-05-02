@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Dropdown} from 'react-bootstrap';
-import {Button} from 'react-bootstrap';
 
 const GithubLink = () => (
   <Dropdown.Item

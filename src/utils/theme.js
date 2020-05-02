@@ -1,6 +1,6 @@
 import { 
   getItem,
-  setItem
+  setItem,
 } from './localStorage';
 
 const matchTheme = () => {
@@ -22,5 +22,5 @@ const setTheme = (theme) => setItem('theme', theme);
 export {
   matchTheme,
   getTheme,
-  setTheme
+  setTheme,
 };

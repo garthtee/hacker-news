@@ -11,7 +11,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.config.js",
-    "build": "webpack --config webpack.prod.config.js"
+    "build": "webpack --config webpack.prod.config.js",
+    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/ --ignore-pattern dist/"
   },
   "browserslist": [
     ">0.2%",

@@ -4,5 +4,5 @@ const setItem = (key, value) => localStorage.setItem(key, value);
 
 export {
   getItem,
-  setItem
+  setItem,
 }

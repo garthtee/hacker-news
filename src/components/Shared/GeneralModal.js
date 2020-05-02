@@ -9,6 +9,8 @@ const GeneralModal = ({
   body,
   show,
   onClose,
+  successAction,
+  successActionText,
 }) => (
   <Modal show={show} onHide={onClose}>
     <Modal.Header closeButton>
@@ -20,6 +22,9 @@ const GeneralModal = ({
     <Modal.Footer>
       <Button variant="secondary" onClick={onClose}>
         Close
+      </Button>
+      <Button variant="primary" onClick={successAction}>
+        {successActionText}
       </Button>
     </Modal.Footer>
   </Modal>

@@ -19,25 +19,34 @@ code {
 }
 
 ul {
-  margin: 15px; 
+  margin: 0;
+  @include media-breakpoint-up(md) {
+   margin: 100px;
+  }
 }
 
 .app {
   text-align: center;
   margin-bottom: 60px;
+}
 
-  &.ui-dark {
+.ui-dark {
+  background-color: $dark-primary-bg;
+
+  h1, h2, h3, h4, h5, p {
+    color: $dark-font-primary;
+  }
+
+  .app-header {
+    color: $dark-font-primary;
+  }
+
+  // Modal dark mode
+  .modal-content {
     background-color: $dark-primary-bg;
+    color: $dark-font-primary;
 
-    h1, h2, h3, h4, h5 {
-      color: $dark-font-primary;
-    }
-
-    .app-logo {
-      background-color: grey;
-    }
-
-    .app-header {
+    .close {
       color: $dark-font-primary;
     }
   }
@@ -52,7 +61,7 @@ ul {
   margin-bottom: 20px;
   font-size: calc(10px + 2vmin);
   img {
-    height: 250px;
+    height: 150px;
   }
 }
 
