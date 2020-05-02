@@ -1,6 +1,6 @@
 # Garth Toland's Hacker News UI
 
-![Image of Hacker News](https://i.imgur.com/7WNdZ2a.png)
+![Hacker News Screenshot](https://i.imgur.com/sdfp65H.png)
 
 ### Development
 #### Available Scripts
