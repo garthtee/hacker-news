@@ -1,7 +1,10 @@
 import React, { 
+  useCallback,
   useEffect,
   useState,
+  useMemo,
 } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import logo from './hacker.png';
 import './app.scss';
 import {
@@ -13,10 +16,21 @@ import axios from 'axios';
 import constants from './constants';
 import Search from './components/Search/Search';
 import Story from './components/Story/Story';
-import Spinner from './components/Spinner/Spinner';
+import Spinner from './components/Shared/Spinner';
 import useTheme from './hooks/useTheme';
 import ScrollToTop from './components/Shared/ScrollToTop';
 import SettingsContainer from './containers/SettingsContainer';
+
+const STANDARD_PAGE_SIZE = 10;
+
+const renderLoading = () => (
+  <div
+    className="loader text-center"
+    key="stories-loading"
+  >
+    <Spinner />
+  </div>
+);
 
 const App = () => {
   const {theme, toggleTheme} = useTheme();
@@ -27,11 +41,15 @@ const App = () => {
   const [stories, setStories] = useState([]);
   const [unfilteredStories, setUnfilteredStories] = useState([]);
 
-  const getStories = (isLargeLoad) => {
+  const hasMoreStories = useMemo(() =>
+    stories.length > 0 && stories.length !== topStories.length && !isSearching,
+    [stories, topStories, isSearching],
+  );
+
+  const getStories = () => {
     setLoading(true);
-    const STORIES_PAGE_SIZE = isLargeLoad ? 60 : 20;
-    const end = page * STORIES_PAGE_SIZE;
-    const start = end - STORIES_PAGE_SIZE;
+    const end = page * STANDARD_PAGE_SIZE;
+    const start = end - STANDARD_PAGE_SIZE;
     const list = topStories.slice(start, end);
 
     list.forEach((story, i) => {
@@ -40,7 +58,7 @@ const App = () => {
           setStories((prev) => [...prev, response.data]);
           setUnfilteredStories((prev) => [...prev, response.data]);
           
-          if (i === (STORIES_PAGE_SIZE - 1)) {
+          if (i === (STANDARD_PAGE_SIZE - 1)) {
             setLoading(false);
           }
         });
@@ -59,9 +77,7 @@ const App = () => {
     }
   }, [topStories]);
 
-  const handler = (stories) => {
-    setStories(stories);
-  };
+  const handler = useCallback((stories) => setStories(stories), []);
 
   return (
     <Container fluid className="app">
@@ -69,8 +85,6 @@ const App = () => {
         <Row className="justify-content-end mt-3">
           <Col xs={3}>
             <SettingsContainer
-              getStories={getStories}
-              loading={loading}
               theme={theme}
               toggleTheme={toggleTheme}
             />
@@ -90,7 +104,7 @@ const App = () => {
                 loading ?
                   'Loading headlines...' :
                   stories.length === 0 ? 'No headlines found' :
-                    `Top ${stories.length} Hacker News headlines`
+                    `Hacker News headlines`
               }
             </p>
           </Col>
@@ -107,25 +121,15 @@ const App = () => {
         </Row>
       </header>
       <ul className="list-group">
-        {
-          stories.map((story, i) => (
-            <Story key={`${story.id}${i}${i}`} story={story} />
-          ))
-        }
-        {(loading && !isSearching) &&
-          <div className="text-center">
-            <Spinner />
-          </div>
-        }
-        {(stories.length > 0 && stories.length !== topStories.length &&
-          !loading && !isSearching) &&
-          <button
-            className="btn btn-success mt-3 mb-2"
-            onClick={() => getStories()}
-          >
-            Load more
-          </button>
-        }
+        <InfiniteScroll
+          loadMore={() => loading ? null : getStories()}
+          hasMore={hasMoreStories}
+          loader={renderLoading()}
+      >
+        {stories.map((story, i) => (
+          <Story key={`${story.id}${i}${i}`} story={story} />
+        ))}
+      </InfiniteScroll>
       </ul>
       <ScrollToTop />
     </Container>

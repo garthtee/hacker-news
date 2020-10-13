@@ -6,9 +6,7 @@ import {
 import GeneralModal from '../Shared/GeneralModal';
 import {openUrl} from '../../utils/helpers';
 
-const Story = ({
-  story,
-}) => {
+const Story = ({story}) => {
   const [show, setShow] = useState(false);
 
   const getTime = (time) => {

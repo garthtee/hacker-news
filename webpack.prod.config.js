@@ -47,9 +47,11 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
     }),
-    new CopyWebpackPlugin([{
+    new CopyWebpackPlugin({
+      patterns: [{
       from: 'public',
-    }]), 
+      }],
+    }), 
   ],
   resolve: {
     extensions: ['.tsx', '.json', '.js'],
