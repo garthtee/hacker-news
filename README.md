@@ -11,5 +11,5 @@ In the project directory (after package installation), you can run:
 npm start
 ```
 
-Runs the app in the development mode and will automatically open in the browser for viewing on port `8080`.
+Thus runs the app in the development mode and will automatically open in the browser for viewing on localhost port `8080`.
 
