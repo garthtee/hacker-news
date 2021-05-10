@@ -1,4 +1,4 @@
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const base = require('./webpack.config');
 
 module.exports = {
   devServer: {
@@ -48,13 +48,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new CopyWebpackPlugin({
-      patterns: [{
-        from: 'public',
-      }],
-    }), 
+    ...base.plugins, 
   ],
   resolve: {
-    extensions: ['.js', '.json'],
+    ...base.resolve,
   },
 };
