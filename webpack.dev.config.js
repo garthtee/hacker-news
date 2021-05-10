@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   devServer: {
@@ -50,12 +51,13 @@ module.exports = {
     ],
   },
   plugins: [
+    // new BundleAnalyzerPlugin(),
     new HtmlWebPackPlugin({
       filename: 'index.html',
       template: './public/index.html',
     }),
   ],
   resolve: {
-    extensions: ['.tsx', '.json', '.js'],
+    extensions: ['.js', '.json'],
   },
 };
