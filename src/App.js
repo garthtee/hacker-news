@@ -1,33 +1,21 @@
-import React, { 
-  useCallback,
-  useEffect,
-  useState,
-  useMemo,
-} from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
-import logo from './hacker.png';
-import './app.scss';
-import {
-  Row,
-  Col,
-  Container,
-} from 'react-bootstrap';
-import axios from 'axios';
-import constants from './constants';
-import Search from './components/Search/Search';
-import Story from './components/Story/Story';
-import Spinner from './components/Shared/Spinner';
-import useTheme from './hooks/useTheme';
-import ScrollToTop from './components/Shared/ScrollToTop';
-import SettingsContainer from './containers/SettingsContainer';
+import React, {useCallback, useEffect, useState, useMemo} from "react";
+import InfiniteScroll from "react-infinite-scroller";
+import logo from "./hacker.png";
+import "./app.scss";
+import {Row, Col, Container} from "react-bootstrap";
+import axios from "axios";
+import constants from "./constants";
+import Search from "./components/Search/Search";
+import Story from "./components/Story/Story";
+import Spinner from "./components/Shared/Spinner";
+import useTheme from "./hooks/useTheme";
+import ScrollToTop from "./components/Shared/ScrollToTop";
+import SettingsContainer from "./containers/SettingsContainer";
 
 const STANDARD_PAGE_SIZE = 10;
 
 const renderLoading = () => (
-  <div
-    className="loader text-center"
-    key="stories-loading"
-  >
+  <div className="loader text-center" key="stories-loading">
     <Spinner />
   </div>
 );
@@ -41,9 +29,12 @@ const App = () => {
   const [stories, setStories] = useState([]);
   const [unfilteredStories, setUnfilteredStories] = useState([]);
 
-  const hasMoreStories = useMemo(() =>
-    stories.length > 0 && stories.length !== topStories.length && !isSearching,
-    [stories, topStories, isSearching],
+  const hasMoreStories = useMemo(
+    () =>
+      stories.length > 0 &&
+      stories.length !== topStories.length &&
+      !isSearching,
+    [stories, topStories, isSearching]
   );
 
   const getStories = () => {
@@ -53,12 +44,13 @@ const App = () => {
     const list = topStories.slice(start, end);
 
     list.forEach((story, i) => {
-      axios.get(`${constants.endpoint}/v0/item/${story}.json`)
+      axios
+        .get(`${constants.endpoint}/v0/item/${story}.json`)
         .then((response) => {
           setStories((prev) => [...prev, response.data]);
           setUnfilteredStories((prev) => [...prev, response.data]);
-          
-          if (i === (STANDARD_PAGE_SIZE - 1)) {
+
+          if (i === STANDARD_PAGE_SIZE - 1) {
             setLoading(false);
           }
         });
@@ -68,10 +60,9 @@ const App = () => {
 
   useEffect(() => {
     if (topStories.length === 0) {
-      axios.get(`${constants.endpoint}/v0/topstories.json`)
-        .then((response) => {
-          setTopStories(response.data);
-        });
+      axios.get(`${constants.endpoint}/v0/topstories.json`).then((response) => {
+        setTopStories(response.data);
+      });
     } else {
       getStories();
     }
@@ -84,10 +75,7 @@ const App = () => {
       <header className="app-header">
         <Row className="justify-content-end mt-3">
           <Col xs={3}>
-            <SettingsContainer
-              theme={theme}
-              toggleTheme={toggleTheme}
-            />
+            <SettingsContainer theme={theme} toggleTheme={toggleTheme} />
           </Col>
         </Row>
         <Row className="justify-content-center">
@@ -100,12 +88,11 @@ const App = () => {
         <Row>
           <Col>
             <p>
-              {
-                loading ?
-                  'Loading headlines...' :
-                  stories.length === 0 ? 'No headlines found' :
-                    `Hacker News headlines`
-              }
+              {loading
+                ? "Loading headlines..."
+                : stories.length === 0
+                ? "No headlines found"
+                : `Hacker News headlines`}
             </p>
           </Col>
         </Row>
@@ -122,14 +109,14 @@ const App = () => {
       </header>
       <ul className="list-group">
         <InfiniteScroll
-          loadMore={() => loading ? null : getStories()}
+          loadMore={() => (loading ? null : getStories())}
           hasMore={hasMoreStories}
           loader={renderLoading()}
-      >
-        {stories.map((story, i) => (
-          <Story key={`${story.id}${i}${i}`} story={story} />
-        ))}
-      </InfiniteScroll>
+        >
+          {stories.map((story, i) => (
+            <Story key={`${story.id}${i}${i}`} story={story} />
+          ))}
+        </InfiniteScroll>
       </ul>
       <ScrollToTop />
     </Container>

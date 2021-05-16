@@ -1,8 +1,5 @@
-import React, {
-  useEffect,
-  useState,
-} from 'react';
-import {FaArrowUp} from 'react-icons/fa';
+import React, {useEffect, useState} from "react";
+import {FaArrowUp} from "react-icons/fa";
 
 const ScrollToTop = ({startingPoint = 200}) => {
   const [show, setShow] = useState(false);
@@ -16,30 +13,26 @@ const ScrollToTop = ({startingPoint = 200}) => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-    return (() => {
-      window.removeEventListener('scroll', handleScroll);
-    });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
 
   const scrollToTop = () => {
-    const position = document.documentElement.scrollTop || document.body.scrollTop;
+    const position =
+      document.documentElement.scrollTop || document.body.scrollTop;
     if (position > 0) {
       window.scrollTo(0, 0);
     }
-  }
+  };
 
   return show ? (
     <div className="scroll-to-top">
-      <FaArrowUp 
-        className="top-arrow"
-        onClick={scrollToTop}
-        size="2em"
-      />
+      <FaArrowUp className="top-arrow" onClick={scrollToTop} size="2em" />
     </div>
   ) : null;
 };
 
 export default ScrollToTop;
-

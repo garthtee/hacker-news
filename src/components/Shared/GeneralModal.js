@@ -1,8 +1,5 @@
-import React from 'react';
-import {
-  Modal,
-  Button,
-} from 'react-bootstrap'
+import React from "react";
+import {Modal, Button} from "react-bootstrap";
 
 const GeneralModal = ({
   title,

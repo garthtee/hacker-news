@@ -1,28 +1,21 @@
-import React, { 
-  useRef,
-  useState,
-} from 'react';
-import {FaTimesCircle} from 'react-icons/fa';
+import React, {useRef, useState} from "react";
+import {FaTimesCircle} from "react-icons/fa";
 
-const Search = ({
-  stories,
-  unfilteredStories,
-  handler,
-  setIsSearching,
-}) => {
+const Search = ({stories, unfilteredStories, handler, setIsSearching}) => {
   let searchInput = useRef();
-  const [previousSearch, setPreviousSearch] = useState('');
+  const [previousSearch, setPreviousSearch] = useState("");
   const [stateIsSearching, setStateIsSearching] = useState(false);
 
   const filterStories = (searchTerm, storiesToSearch) => {
-    if (searchTerm === '') {
+    if (searchTerm === "") {
       handler(unfilteredStories);
 
       return;
     }
 
     const updatedList = storiesToSearch.filter((s) =>
-      s.title.toLowerCase().includes(searchTerm.toLowerCase()));
+      s.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     handler(updatedList);
   };
@@ -43,8 +36,8 @@ const Search = ({
   };
 
   const clearSearch = () => {
-    searchInput.value = '';
-    filterStories('', unfilteredStories);
+    searchInput.value = "";
+    filterStories("", unfilteredStories);
     setStateIsSearching(false);
     setIsSearching(false);
   };
@@ -52,22 +45,26 @@ const Search = ({
   return (
     <div className="search">
       <div className="input-group">
-        <input className="form-control" placeholder="Search headlines..."
+        <input
+          className="form-control"
+          placeholder="Search headlines..."
           onChange={handleChange}
-          ref={(input) => {searchInput = input;}} 
+          ref={(input) => {
+            searchInput = input;
+          }}
         />
-        {stateIsSearching &&
+        {stateIsSearching && (
           <FaTimesCircle
             className="clear-button align-self-center"
             data-toggle="tooltip"
             title="Clear search"
             onClick={() => clearSearch()}
             style={{
-              fontSize: '20px',
-              marginLeft: '5px',
+              fontSize: "20px",
+              marginLeft: "5px",
             }}
           />
-        }
+        )}
       </div>
     </div>
   );

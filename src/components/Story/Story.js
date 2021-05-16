@@ -1,10 +1,7 @@
-import React, {useState} from 'react';
-import { 
-  FaHandPointRight,
-  FaHandPointLeft,
-} from 'react-icons/fa';
-import GeneralModal from '../Shared/GeneralModal';
-import {openUrl} from '../../utils/helpers';
+import React, {useState} from "react";
+import {FaHandPointRight, FaHandPointLeft} from "react-icons/fa";
+import GeneralModal from "../Shared/GeneralModal";
+import {openUrl} from "../../utils/helpers";
 
 const Story = ({story}) => {
   const [show, setShow] = useState(false);
@@ -12,9 +9,9 @@ const Story = ({story}) => {
   const getTime = (time) => {
     const date = new Date(0);
     date.setUTCSeconds(time);
-   
+
     return date.toDateString();
-  }
+  };
 
   const onClickStory = (event) => {
     event.preventDefault();
@@ -26,13 +23,13 @@ const Story = ({story}) => {
     }
   };
 
-  const onClickViewOnHN = (id) => 
+  const onClickViewOnHN = (id) =>
     openUrl(`https://news.ycombinator.com/item?id=${id}`);
 
   if (story === null) {
     return null;
   }
-		
+
   return (
     <>
       <div className="story" data-title={story.title}>
@@ -40,21 +37,19 @@ const Story = ({story}) => {
           <li className="list-group-item">
             <div className="row">
               <div className="col-8 title justify-content-center align-self-center">
-                <h5>
-                  {story.title}
-                </h5>
+                <h5>{story.title}</h5>
               </div>
               <div className="col-4 information">
-                <p>                  
+                <p>
                   <FaHandPointRight
                     style={{
-                      marginRight: '5px',
+                      marginRight: "5px",
                     }}
                   />
                   {story.score}
                   <FaHandPointLeft
                     style={{
-                      marginLeft: '5px',
+                      marginLeft: "5px",
                     }}
                   />
                 </p>
@@ -64,7 +59,7 @@ const Story = ({story}) => {
           </li>
         </a>
       </div>
-      {show &&
+      {show && (
         <GeneralModal
           body={story.text}
           title={story.title}
@@ -73,7 +68,7 @@ const Story = ({story}) => {
           successAction={() => onClickViewOnHN(story.id)}
           successActionText="View on HN"
         />
-      }
+      )}
     </>
   );
 };

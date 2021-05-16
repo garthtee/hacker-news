@@ -15,8 +15,10 @@
 		"build": "webpack --config webpack.prod.config.js",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d dist",
-		"lint": "eslint \"**/*.js\" --ignore-pattern node_modules/ --ignore-pattern dist/"
-	},
+		"lint": "eslint \"**/*.js\" --ignore-pattern node_modules/ --ignore-pattern dist/",
+    "tidy": "npx prettier --write .",
+    "tidy:check": "npx prettier --check ."
+  },
 	"browserslist": [
 		">0.2%",
 		"not dead",
@@ -43,10 +45,11 @@
 		"eslint-plugin-react": "7.23.2",
 		"extract-text-webpack-plugin": "3.0.2",
 		"file-loader": "6.2.0",
-		"gh-pages": "^3.1.0",
+		"gh-pages": "3.1.0",
 		"html-loader": "2.1.2",
 		"html-webpack-plugin": "5.3.1",
 		"node-sass": "6.0.0",
+		"prettier": "2.3.0",
 		"process": "0.11.10",
 		"prop-types": "15.7.2",
 		"sass-loader": "11.1.0",

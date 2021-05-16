@@ -21,7 +21,7 @@ code {
 ul {
   margin: 0;
   @include media-breakpoint-up(md) {
-   margin: 100px;
+    margin: 100px;
   }
 }
 
@@ -30,18 +30,20 @@ ul {
   margin-bottom: 60px;
 }
 
+// Dark mode
 .ui-dark {
   background-color: $dark-primary-bg;
-
-  h1, h2, h3, h4, h5, p {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
     color: $dark-font-primary;
   }
-
   .app-header {
     color: $dark-font-primary;
   }
-
-  // Modal dark mode
   .modal-content {
     background-color: $dark-primary-bg;
     color: $dark-font-primary;
@@ -49,6 +51,16 @@ ul {
     .close {
       color: $dark-font-primary;
     }
+  }
+  .dropdown-menu {
+    .dropdown-item {
+      color: $dark-font-primary;
+      &:hover {
+        background-color: $dark-secondary-bg;
+      }
+    }
+    background-color: $dark-primary-bg;
+    color: $dark-font-primary;
   }
 }
 
