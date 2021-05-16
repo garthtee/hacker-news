@@ -16,7 +16,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": ["warn", "never"],
     "no-console": "warn",
     "strict": ["error", "global"],
     "curly": "warn",
