@@ -1,15 +1,16 @@
-import React, {useCallback, useEffect, useState, useMemo} from "react";
+import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import logo from "./hacker.png";
 import "./app.scss";
 import {Row, Col, Container} from "react-bootstrap";
 import axios from "axios";
 import constants from "./constants";
-import Search from "./components/Search/Search";
 import Story from "./components/Story/Story";
 import Spinner from "./components/Shared/Spinner";
+import BottomNav from "./components/BottomNav";
+import CopyLink from "./components/BottomNav/CopyLink";
+import ScrollToTop from "./components/BottomNav/ScrollToTop";
 import useTheme from "./hooks/useTheme";
-import ScrollToTop from "./components/Shared/ScrollToTop";
 import SettingsContainer from "./containers/SettingsContainer";
 
 const STANDARD_PAGE_SIZE = 10;
@@ -22,19 +23,16 @@ const renderLoading = () => (
 
 const App = () => {
   const {theme, toggleTheme} = useTheme();
-  const [isSearching, setIsSearching] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [topStories, setTopStories] = useState([]);
-  const [stories, setStories] = useState([]);
-  const [unfilteredStories, setUnfilteredStories] = useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [page, setPage] = React.useState(1);
+  const [topStories, setTopStories] = React.useState([]);
+  const [stories, setStories] = React.useState([]);
 
-  const hasMoreStories = useMemo(
+  const hasMoreStories = React.useMemo(
     () =>
       stories.length > 0 &&
-      stories.length !== topStories.length &&
-      !isSearching,
-    [stories, topStories, isSearching]
+      stories.length !== topStories.length,
+    [stories, topStories]
   );
 
   const getStories = () => {
@@ -48,7 +46,6 @@ const App = () => {
         .get(`${constants.endpoint}/v0/item/${story}.json`)
         .then((response) => {
           setStories((prev) => [...prev, response.data]);
-          setUnfilteredStories((prev) => [...prev, response.data]);
 
           if (i === STANDARD_PAGE_SIZE - 1) {
             setLoading(false);
@@ -58,7 +55,7 @@ const App = () => {
     setPage(page + 1);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (topStories.length === 0) {
       axios.get(`${constants.endpoint}/v0/topstories.json`).then((response) => {
         setTopStories(response.data);
@@ -67,8 +64,6 @@ const App = () => {
       getStories();
     }
   }, [topStories]);
-
-  const handler = useCallback((stories) => setStories(stories), []);
 
   return (
     <Container fluid className="app">
@@ -96,16 +91,6 @@ const App = () => {
             </p>
           </Col>
         </Row>
-        <Row className="justify-content-center">
-          <Col xs={10} sm={6} md={3} lg={4}>
-            <Search
-              stories={stories}
-              unfilteredStories={unfilteredStories}
-              handler={handler}
-              setIsSearching={(value) => setIsSearching(value)}
-            />
-          </Col>
-        </Row>
       </header>
       <ul className="list-group">
         <InfiniteScroll
@@ -118,7 +103,10 @@ const App = () => {
           ))}
         </InfiniteScroll>
       </ul>
-      <ScrollToTop />
+      <BottomNav>
+        <CopyLink />
+        <ScrollToTop />
+      </BottomNav>
     </Container>
   );
 };

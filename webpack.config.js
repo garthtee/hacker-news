@@ -1,11 +1,15 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 const webpack = require("webpack");
 const path = require("path");
 const dotenv = require("dotenv");
 
 module.exports = {
   plugins: [
+    new ESLintPlugin({
+      files: "src/**/*.js",
+    }),
     new HtmlWebPackPlugin({
       filename: "index.html",
       template: "./public/index.html",
