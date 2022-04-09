@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import logo from "./hacker.png";
 import "./app.scss";
@@ -29,13 +29,11 @@ const App = () => {
   const [stories, setStories] = React.useState([]);
 
   const hasMoreStories = React.useMemo(
-    () =>
-      stories.length > 0 &&
-      stories.length !== topStories.length,
+    () => stories.length > 0 && stories.length !== topStories.length,
     [stories, topStories]
   );
 
-  const getStories = () => {
+  const getStories = React.useCallback(() => {
     setLoading(true);
     const end = page * STANDARD_PAGE_SIZE;
     const start = end - STANDARD_PAGE_SIZE;
@@ -53,7 +51,7 @@ const App = () => {
         });
     });
     setPage(page + 1);
-  };
+  }, [topStories, page]);
 
   React.useEffect(() => {
     if (topStories.length === 0) {
@@ -99,7 +97,7 @@ const App = () => {
           loader={renderLoading()}
         >
           {stories.map((story, i) => (
-            <Story key={`${story.id}${i}${i}`} story={story} />
+            <Story key={`${story.id}-${i}`} story={story} />
           ))}
         </InfiniteScroll>
       </ul>

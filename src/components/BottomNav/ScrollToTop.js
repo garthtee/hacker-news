@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {FaArrowUp} from "react-icons/fa";
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
@@ -15,11 +15,7 @@ const ScrollToTop = () => {
     <OverlayTrigger
       key="scroll-to-top-tooltip"
       placement="top"
-      overlay={
-        <Tooltip id="scroll-to-top-tooltip">
-          Scroll to top
-        </Tooltip>
-      }
+      overlay={<Tooltip id="scroll-to-top-tooltip">Scroll to top</Tooltip>}
     >
       <FaArrowUp
         color="green"

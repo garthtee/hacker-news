@@ -8,3 +8,4 @@ dist/
 environment.js
 package-lock.json
 package.json
+*.html

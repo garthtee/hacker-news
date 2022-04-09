@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import styled from "styled-components";
 
@@ -19,7 +19,7 @@ const ContainerStyled = styled(Container)`
     }
   }
   .col > * {
-    // TODO: Propagate click handlers for 
+    // TODO: Propagate click handlers for
     // full button click
     width: 100%;
   }
@@ -47,7 +47,7 @@ const BottomNav = ({children}) => {
   if (!show) {
     return null;
   }
-  
+
   return (
     <ContainerStyled fluid>
       <Row>

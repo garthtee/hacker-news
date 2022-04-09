@@ -1,15 +1,19 @@
-import {useState, useEffect} from "react";
+import * as React from "react";
 import {matchTheme} from "../utils/theme";
 import {getItem, setItem} from "../utils/localStorage";
+import {THEME} from "../constants";
+
+const DARK_COLOUR = "#2a2a2a";
+const LIGHT_COLOUR = "#ffffff";
 
 const useTheme = () => {
   const themeStored = getItem("theme");
-  const [theme, _setTheme] = useState(themeStored || "light");
+  const [theme, _setTheme] = React.useState(themeStored || THEME.LIGHT);
 
   const setBodyBackground = (theme) => {
     document.body.className = `ui-${theme}`;
     document.body.style.backgroundColor =
-      theme === "dark" ? "#2a2a2a" : "#ffffff";
+      theme === THEME.DARK ? DARK_COLOUR : LIGHT_COLOUR;
   };
 
   const setTheme = (newTheme) => {
@@ -19,11 +23,11 @@ const useTheme = () => {
   };
 
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
+    const newTheme = theme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
     setTheme(newTheme);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!themeStored) {
       const match = matchTheme();
 

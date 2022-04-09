@@ -1,3 +1,4 @@
+import {THEME} from "../constants";
 import {getItem, setItem} from "./localStorage";
 
 const matchTheme = () => {
@@ -5,17 +6,17 @@ const matchTheme = () => {
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
-    return "dark";
+    return THEME.DARK;
   }
 
   if (
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: light)").matches
   ) {
-    return "light";
+    return THEME.LIGHT;
   }
 
-  return "light";
+  return THEME.LIGHT;
 };
 
 const getTheme = () => getItem("theme");

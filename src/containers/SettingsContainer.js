@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import {Dropdown} from "react-bootstrap";
 import ThemeToggle from "../components/Settings/ThemeToggle";
 import Settings from "../components/Settings/Settings";

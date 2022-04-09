@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import * as React from "react";
 import {FaHandPointRight, FaHandPointLeft} from "react-icons/fa";
 import GeneralModal from "../Shared/GeneralModal";
 import {openUrl} from "../../utils/helpers";
 
 const Story = ({story}) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = React.useState(false);
 
   const getTime = (time) => {
     const date = new Date(0);
