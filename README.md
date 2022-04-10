@@ -17,6 +17,5 @@ This runs the app in the development mode and will automatically open in the bro
 Deploy to Github pages:
 
 ```bash
-npm run build &&
-./node_modules/.bin/gh-pages -d build
+npm run build && ./node_modules/.bin/gh-pages -d build
 ```
