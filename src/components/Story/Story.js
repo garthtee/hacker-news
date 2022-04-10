@@ -1,6 +1,18 @@
 import * as React from "react";
+import styled from "styled-components";
+import {Button} from "react-bootstrap";
+import {FaThumbsUp} from "react-icons/fa";
 import GeneralModal from "../Shared/GeneralModal";
 import {openUrl} from "../../utils/helpers";
+
+const StyledScore = styled(Button)`
+  padding: 2px 2px;
+  margin-bottom: 5px;
+  span {
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+`;
 
 const Story = ({story}) => {
   const [show, setShow] = React.useState(false);
@@ -35,11 +47,14 @@ const Story = ({story}) => {
         <a onClick={onClickStory}>
           <li className="list-group-item">
             <div className="row">
-              <div className="col-8 title justify-content-center align-self-center">
+              <div className="col-9 title justify-content-center align-self-center">
                 <h5>{story.title}</h5>
               </div>
-              <div className="col-4 information">
-                <p>{story.score}</p>
+              <div className="col-3 information">
+                <StyledScore>
+                  <span>{story.score}</span>
+                  <FaThumbsUp />
+                </StyledScore>
                 <p>{getTime(story.time)}</p>
               </div>
             </div>
