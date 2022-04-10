@@ -1,18 +1,34 @@
 import * as React from "react";
+import styled from "styled-components";
+import {Button} from "react-bootstrap";
+import {FaThumbsUp} from "react-icons/fa";
 import GeneralModal from "../Shared/GeneralModal";
 import {openUrl} from "../../utils/helpers";
+import {StoryType} from "../../types/types";
 
-const Story = ({story}) => {
+const StyledTime = styled.p`
+  margin-bottom: 0;
+`;
+const StyledScore = styled(Button)`
+  padding: 2px 4px;
+  margin-bottom: 10px;
+  span {
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+`;
+
+const Story = ({story}: {story: StoryType}) => {
   const [show, setShow] = React.useState(false);
 
-  const getTime = (time) => {
+  const getTime = (time: number) => {
     const date = new Date(0);
     date.setUTCSeconds(time);
 
     return date.toDateString();
   };
 
-  const onClickStory = (event) => {
+  const onClickStory = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
     if (!story.url) {
@@ -22,7 +38,7 @@ const Story = ({story}) => {
     }
   };
 
-  const onClickViewOnHN = (id) =>
+  const onClickViewOnHN = (id: string) =>
     openUrl(`https://news.ycombinator.com/item?id=${id}`);
 
   if (story === null) {
@@ -35,12 +51,15 @@ const Story = ({story}) => {
         <a onClick={onClickStory}>
           <li className="list-group-item">
             <div className="row">
-              <div className="col-8 title justify-content-center align-self-center">
+              <div className="col-9 title justify-content-center align-self-center">
                 <h5>{story.title}</h5>
               </div>
-              <div className="col-4 information">
-                <p>{story.score}</p>
-                <p>{getTime(story.time)}</p>
+              <div className="col-3 information">
+                <StyledScore>
+                  <span>{story.score}</span>
+                  <FaThumbsUp />
+                </StyledScore>
+                <StyledTime>{getTime(story.time)}</StyledTime>
               </div>
             </div>
           </li>
@@ -48,10 +67,12 @@ const Story = ({story}) => {
       </div>
       {show && (
         <GeneralModal
+          // @ts-ignore
           body={story.text}
           title={story.title}
           show={show}
           onClose={() => setShow(false)}
+          // @ts-ignore
           successAction={() => onClickViewOnHN(story.id)}
           successActionText="View on HN"
         />
