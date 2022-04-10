@@ -11,3 +11,12 @@ npm start
 ```
 
 This runs the app in the development mode and will automatically open in the browser for viewing on [localhost:8080](http://localhost:8080).
+
+### Deployment
+
+Deploy to Github pages:
+
+```bash
+npm run build &&
+./node_modules/.bin/gh-pages -d build
+```
