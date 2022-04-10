@@ -12,9 +12,6 @@
     "react-toastify": "8.2.0",
     "styled-components": "5.3.5"
   },
-  "overrides": {
-    "react-error-overlay": "6.0.9"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
