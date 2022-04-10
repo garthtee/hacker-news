@@ -7,7 +7,7 @@ type Props = {
   onClose: () => void;
   successAction: () => void;
   successActionText: string;
-}
+};
 
 const GeneralModal = ({
   title,

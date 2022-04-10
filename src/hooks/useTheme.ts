@@ -1,13 +1,13 @@
 import * as React from "react";
-import {matchTheme} from "../utils/theme";
-import {getItem, setItem} from "../utils/localStorage";
+import {getTheme, matchTheme} from "../utils/theme";
+import {setItem} from "../utils/localStorage";
 import {Theme} from "../constants";
 
 const DARK_COLOUR = "#2a2a2a";
 const LIGHT_COLOUR = "#ffffff";
 
 const useTheme = () => {
-  const themeStored = getItem("theme") as Theme ?? Theme.DARK;
+  const themeStored = getTheme();
   const [theme, _setTheme] = React.useState<Theme>(themeStored || Theme.LIGHT);
 
   const setBodyBackground = (theme: Theme) => {

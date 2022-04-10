@@ -19,7 +19,7 @@ const matchTheme = () => {
   return Theme.LIGHT;
 };
 
-const getTheme = () => getItem("theme");
+const getTheme = () => (getItem("theme") as Theme) || Theme.DARK;
 
 const setTheme = (theme: Theme) => setItem("theme", theme);
 

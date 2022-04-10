@@ -25,7 +25,7 @@ const ContainerStyled = styled(Container)`
   }
 `;
 
-const BottomNav: React.FC = ({children}: any) => {
+const BottomNav: React.FC<any> = ({children}) => {
   const [show, setShow] = React.useState(false);
 
   const handleScroll = () => {
@@ -51,7 +51,7 @@ const BottomNav: React.FC = ({children}: any) => {
   return (
     <ContainerStyled fluid>
       <Row>
-        {children.map((child: any, index: number) => (
+        {children.map((child: React.ReactElement, index: number) => (
           <Col key={`bottom-nav-item-${index}`}>
             {React.cloneElement(child, {show, setShow})}
           </Col>

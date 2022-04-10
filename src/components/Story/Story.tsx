@@ -1,21 +1,24 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Button } from "react-bootstrap";
-import { FaThumbsUp } from "react-icons/fa";
+import {Button} from "react-bootstrap";
+import {FaThumbsUp} from "react-icons/fa";
 import GeneralModal from "../Shared/GeneralModal";
-import { openUrl } from "../../utils/helpers";
-import { StoryType } from "../../types/types";
+import {openUrl} from "../../utils/helpers";
+import {StoryType} from "../../types/types";
 
+const StyledTime = styled.p`
+  margin-bottom: 0;
+`;
 const StyledScore = styled(Button)`
   padding: 2px 4px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   span {
     margin-right: 5px;
     vertical-align: middle;
   }
 `;
 
-const Story = ({ story }: { story: StoryType }) => {
+const Story = ({story}: {story: StoryType}) => {
   const [show, setShow] = React.useState(false);
 
   const getTime = (time: number) => {
@@ -56,7 +59,7 @@ const Story = ({ story }: { story: StoryType }) => {
                   <span>{story.score}</span>
                   <FaThumbsUp />
                 </StyledScore>
-                <p>{getTime(story.time)}</p>
+                <StyledTime>{getTime(story.time)}</StyledTime>
               </div>
             </div>
           </li>

@@ -7,7 +7,7 @@ import {Theme, VERSION} from "../constants";
 type Props = {
   theme: Theme;
   toggleTheme: () => void;
-}
+};
 
 const SettingsContainer = ({theme, toggleTheme}: Props) => (
   // @ts-ignore
