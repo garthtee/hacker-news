@@ -1,1 +1,27 @@
-var cacheName="hacker-news-page",filesToCache=["/images","/index.html"];self.addEventListener("install",(function(e){console.log("[ServiceWorker] Install"),e.waitUntil(caches.open(cacheName).then((function(e){return console.log("[ServiceWorker] Caching app shell"),e.addAll(filesToCache)})))})),self.addEventListener("activate",(e=>{e.waitUntil(self.clients.claim())})),self.addEventListener("fetch",(e=>{e.respondWith(caches.match(e.request,{ignoreSearch:!0}).then((a=>a||fetch(e.request))))}));
+/*eslint-disable*/
+
+var cacheName = "hacker-news-page";
+
+var filesToCache = ["/images", "/index.html"];
+
+self.addEventListener("install", function (e) {
+  console.log("[ServiceWorker] Install");
+  e.waitUntil(
+    caches.open(cacheName).then(function (cache) {
+      console.log("[ServiceWorker] Caching app shell");
+      return cache.addAll(filesToCache);
+    })
+  );
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request, {ignoreSearch: true}).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
