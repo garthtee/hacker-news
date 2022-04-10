@@ -1,5 +1,4 @@
 import * as React from "react";
-import {FaHandPointRight, FaHandPointLeft} from "react-icons/fa";
 import GeneralModal from "../Shared/GeneralModal";
 import {openUrl} from "../../utils/helpers";
 
@@ -40,19 +39,7 @@ const Story = ({story}) => {
                 <h5>{story.title}</h5>
               </div>
               <div className="col-4 information">
-                <p>
-                  <FaHandPointRight
-                    style={{
-                      marginRight: "5px",
-                    }}
-                  />
-                  {story.score}
-                  <FaHandPointLeft
-                    style={{
-                      marginLeft: "5px",
-                    }}
-                  />
-                </p>
+                <p>{story.score}</p>
                 <p>{getTime(story.time)}</p>
               </div>
             </div>

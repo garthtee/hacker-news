@@ -8,10 +8,11 @@ import constants from "./constants";
 import Story from "./components/Story/Story";
 import Spinner from "./components/Shared/Spinner";
 import BottomNav from "./components/BottomNav";
-import CopyLink from "./components/BottomNav/CopyLink";
+import ShareLink from "./components/BottomNav/ShareLink";
 import ScrollToTop from "./components/BottomNav/ScrollToTop";
 import useTheme from "./hooks/useTheme";
 import SettingsContainer from "./containers/SettingsContainer";
+import {ToastContainer} from "react-toastify";
 
 const STANDARD_PAGE_SIZE = 10;
 
@@ -65,6 +66,7 @@ const App = () => {
 
   return (
     <Container fluid className="app">
+      <ToastContainer theme={theme} position="top-center" />
       <header className="app-header">
         <Row className="justify-content-end mt-3">
           <Col xs={3}>
@@ -102,7 +104,7 @@ const App = () => {
         </InfiniteScroll>
       </ul>
       <BottomNav>
-        <CopyLink />
+        <ShareLink />
         <ScrollToTop />
       </BottomNav>
     </Container>
