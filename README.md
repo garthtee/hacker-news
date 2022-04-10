@@ -1,6 +1,6 @@
 # Hacker News UI
 
-![Hacker News Screenshot](https://i.imgur.com/sdfp65H.png)
+![Hacker News Screenshot](https://i.imgur.com/mWOXzvg.png)
 
 ### Development
 
