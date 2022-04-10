@@ -1,4 +1,4 @@
-import {THEME} from "../constants";
+import {Theme} from "../constants";
 import {getItem, setItem} from "./localStorage";
 
 const matchTheme = () => {
@@ -6,21 +6,21 @@ const matchTheme = () => {
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches
   ) {
-    return THEME.DARK;
+    return Theme.DARK;
   }
 
   if (
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: light)").matches
   ) {
-    return THEME.LIGHT;
+    return Theme.LIGHT;
   }
 
-  return THEME.LIGHT;
+  return Theme.LIGHT;
 };
 
 const getTheme = () => getItem("theme");
 
-const setTheme = (theme) => setItem("theme", theme);
+const setTheme = (theme: Theme) => setItem("theme", theme);
 
 export {matchTheme, getTheme, setTheme};

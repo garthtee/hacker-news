@@ -1,8 +1,9 @@
 import * as React from "react";
 import InfiniteScroll from "react-infinite-scroller";
+// @ts-ignore
 import logo from "./hacker.png";
 import "./app.scss";
-import {Row, Col, Container} from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import axios from "axios";
 import constants from "./constants";
 import Story from "./components/Story/Story";
@@ -12,7 +13,8 @@ import ShareLink from "./components/BottomNav/ShareLink";
 import ScrollToTop from "./components/BottomNav/ScrollToTop";
 import useTheme from "./hooks/useTheme";
 import SettingsContainer from "./containers/SettingsContainer";
-import {ToastContainer} from "react-toastify";
+import { Theme, ToastContainer } from "react-toastify";
+import { StoryType } from "./types/types";
 
 const STANDARD_PAGE_SIZE = 10;
 
@@ -23,11 +25,11 @@ const renderLoading = () => (
 );
 
 const App = () => {
-  const {theme, toggleTheme} = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(1);
   const [topStories, setTopStories] = React.useState([]);
-  const [stories, setStories] = React.useState([]);
+  const [stories, setStories] = React.useState<StoryType[]>([]);
 
   const hasMoreStories = React.useMemo(
     () => stories.length > 0 && stories.length !== topStories.length,
@@ -44,7 +46,7 @@ const App = () => {
       axios
         .get(`${constants.endpoint}/v0/item/${story}.json`)
         .then((response) => {
-          setStories((prev) => [...prev, response.data]);
+          setStories((prev: StoryType[]) => [...prev, response.data]);
 
           if (i === STANDARD_PAGE_SIZE - 1) {
             setLoading(false);
@@ -66,7 +68,7 @@ const App = () => {
 
   return (
     <Container fluid className="app">
-      <ToastContainer theme={theme} position="top-center" />
+      <ToastContainer theme={theme as Theme} position="top-center" />
       <header className="app-header">
         <Row className="justify-content-end mt-3">
           <Col xs={3}>
@@ -86,8 +88,8 @@ const App = () => {
               {loading
                 ? "Loading headlines..."
                 : stories.length === 0
-                ? "No headlines found"
-                : `Hacker News headlines`}
+                  ? "No headlines found"
+                  : `Hacker News headlines`}
             </p>
           </Col>
         </Row>
@@ -98,11 +100,12 @@ const App = () => {
           hasMore={hasMoreStories}
           loader={renderLoading()}
         >
-          {stories.map((story, i) => (
+          {stories.map((story: StoryType, i: number) => (
             <Story key={`${story.id}-${i}`} story={story} />
           ))}
         </InfiniteScroll>
       </ul>
+      {/* @ts-ignore */}
       <BottomNav>
         <ShareLink />
         <ScrollToTop />

@@ -1,12 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import {Button} from "react-bootstrap";
-import {FaThumbsUp} from "react-icons/fa";
+import { Button } from "react-bootstrap";
+import { FaThumbsUp } from "react-icons/fa";
 import GeneralModal from "../Shared/GeneralModal";
-import {openUrl} from "../../utils/helpers";
+import { openUrl } from "../../utils/helpers";
+import { StoryType } from "../../types/types";
 
 const StyledScore = styled(Button)`
-  padding: 2px 2px;
+  padding: 2px 4px;
   margin-bottom: 5px;
   span {
     margin-right: 5px;
@@ -14,17 +15,17 @@ const StyledScore = styled(Button)`
   }
 `;
 
-const Story = ({story}) => {
+const Story = ({ story }: { story: StoryType }) => {
   const [show, setShow] = React.useState(false);
 
-  const getTime = (time) => {
+  const getTime = (time: number) => {
     const date = new Date(0);
     date.setUTCSeconds(time);
 
     return date.toDateString();
   };
 
-  const onClickStory = (event) => {
+  const onClickStory = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
     if (!story.url) {
@@ -34,7 +35,7 @@ const Story = ({story}) => {
     }
   };
 
-  const onClickViewOnHN = (id) =>
+  const onClickViewOnHN = (id: string) =>
     openUrl(`https://news.ycombinator.com/item?id=${id}`);
 
   if (story === null) {
@@ -63,10 +64,12 @@ const Story = ({story}) => {
       </div>
       {show && (
         <GeneralModal
+          // @ts-ignore
           body={story.text}
           title={story.title}
           show={show}
           onClose={() => setShow(false)}
+          // @ts-ignore
           successAction={() => onClickViewOnHN(story.id)}
           successActionText="View on HN"
         />

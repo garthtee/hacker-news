@@ -1,29 +1,29 @@
 import * as React from "react";
 import {matchTheme} from "../utils/theme";
 import {getItem, setItem} from "../utils/localStorage";
-import {THEME} from "../constants";
+import {Theme} from "../constants";
 
 const DARK_COLOUR = "#2a2a2a";
 const LIGHT_COLOUR = "#ffffff";
 
 const useTheme = () => {
-  const themeStored = getItem("theme");
-  const [theme, _setTheme] = React.useState(themeStored || THEME.LIGHT);
+  const themeStored = getItem("theme") as Theme ?? Theme.DARK;
+  const [theme, _setTheme] = React.useState<Theme>(themeStored || Theme.LIGHT);
 
-  const setBodyBackground = (theme) => {
+  const setBodyBackground = (theme: Theme) => {
     document.body.className = `ui-${theme}`;
     document.body.style.backgroundColor =
-      theme === THEME.DARK ? DARK_COLOUR : LIGHT_COLOUR;
+      theme === Theme.DARK ? DARK_COLOUR : LIGHT_COLOUR;
   };
 
-  const setTheme = (newTheme) => {
+  const setTheme = (newTheme: Theme) => {
     _setTheme(newTheme);
     setItem("theme", newTheme);
     setBodyBackground(newTheme);
   };
 
   const toggleTheme = () => {
-    const newTheme = theme === THEME.DARK ? THEME.LIGHT : THEME.DARK;
+    const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
     setTheme(newTheme);
   };
 
@@ -35,7 +35,7 @@ const useTheme = () => {
         setTheme(match);
       }
     } else {
-      setBodyBackground(themeStored);
+      setBodyBackground(themeStored as Theme);
     }
   }, []);
 
